@@ -29,6 +29,7 @@
                         <p class="fs-5 mb-4">{{ $post->description }}</p>
                         <p class="fs-5 mb-4">Numbers {{ $post->number_of_product }}</p>
                         <p class="fs-5 mb-4">Kind {{ $post->kind }}</p>
+                        <a  href="{{route('login')}}" class="add-cart btn btn-dark"> + Add To Cart</a>
                     </section>
                 </article>
                 <!-- Comments section-->

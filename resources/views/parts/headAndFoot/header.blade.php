@@ -7,6 +7,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title> @yield('title','Male-Fashion')</title>
 
     <!-- Google Font -->
@@ -25,14 +26,6 @@
     <link rel="stylesheet" href="{{url('css/owl.carousel.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ url('css/style.css') }}" type="text/css">
-
-
-
-    <style>a:hover{ text-decoration: none;
-    }
-
-    </style>
-
 
 </head>
 
@@ -97,7 +90,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="{{url('img/logo.png')}}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8">

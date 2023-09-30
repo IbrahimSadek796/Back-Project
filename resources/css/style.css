@@ -121,6 +121,15 @@ ol {
     /* end register */
 
 
+    /* Cart Page */
+    @media (max-width: 991.98px) {
+        thead {
+          font-size:small;
+          font-weight: 100;
+        }
+      }
+    /* End Cart */
+
 	/* login */
 
 	.rounded-t-5 {

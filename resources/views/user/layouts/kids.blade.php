@@ -7,12 +7,23 @@
 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
 <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="#">Profile</a></li>
-    <li><a class="dropdown-item" href="#">Wishlist</a></li>
-    <li><a class="dropdown-item" href="#">My Order</a></li>
+    <li><a class="dropdown-item" href="{{route('user.orders')}}">My Order</a></li>
+    <hr>
+    <li>
+        <a class="dropdown-item" href="{{ route('logout') }}"
+           onclick="event.preventDefault();
+                         document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    </li>
   </ul>
 </li>
 
-{{-- <li class="d-inline nav-item me-2"><a href="{{route('user.shopping.cart')}}" class="text-danger"><i class="fas fa-cart-shopping"></i> My Cart</a></li> --}}
+<li class="d-inline nav-item me-2"><a href="{{ route('user.shopping.cart') }}" class="text-danger"><i class="fas fa-cart-shopping"></i> My Cart</a></li>
 
 <li class="d-inline nav-item"><a href="{{ route('logout') }}"
 onclick="event.preventDefault();
@@ -87,11 +98,7 @@ onclick="event.preventDefault();
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{ $post['title'] }}</h6>
-                                    <form action="{{route('user.shopping.cart')}}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="post_id" value="{{$post['id']}}">
-                                        <a type="submit" class="add-cart">+ Add To Cart</a type="submit">
-                                    </form>
+                                    <a  onclick="addToCart({{$post['id']}})" class="add-cart btn btn-dark"> + Add To Cart</a>
                                     <div class="rating">
                                         @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                             <i class="fa fa-star text-warning"></i>
@@ -117,3 +124,37 @@ onclick="event.preventDefault();
     </section>
     <!-- Shop Section End -->
     @endsection
+
+    @section('scripts')
+<script type="text/javascript">
+
+    function addToCart(id) {
+        var product_id = id;
+        console.log(product_id);
+        $.ajax({
+            url:'{{route('user.addpost.to.cart')}}',
+            datatype : 'json',
+            type: 'post',
+            data : {
+               ' _token' : '{{ csrf_token() }}',
+                'product_id': product_id
+            },
+            success : function (responce){
+
+                swal.fire({
+                    text: responce.msg,
+
+                    imageWidth:50,
+                    imageHeight:50,
+
+                    timer:4000,
+                    className: 'alert'
+
+                });
+            }
+
+        })
+    }
+
+    </script>
+@endsection

@@ -8,13 +8,24 @@ Home Page
 <li class="d-inline nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
 <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Profile</a></li>
-    <li><a class="dropdown-item" href="#">Wishlist</a></li>
-    <li><a class="dropdown-item" href="#">My Order</a></li>
+    <li><a class="dropdown-item" href="{{route('user.edit')}}">Profile</a></li>
+    <li><a class="dropdown-item" href="{{route('user.orders')}}">My Order</a></li>
+    <hr>
+    <li>
+        <a class="dropdown-item" href="{{ route('logout') }}"
+           onclick="event.preventDefault();
+                         document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    </li>
   </ul>
 </li>
 
-{{-- <li class="d-inline nav-item me-2"><a href="{{route('user.shopping.cart')}}" class="text-danger"><i class="fas fa-cart-shopping"></i> My Cart</a></li> --}}
+<li class="d-inline nav-item me-2"><a href="{{ route('user.shopping.cart') }}" class="text-danger"><i class="fas fa-cart-shopping"></i> My Cart</a></li>
 
 <li class="d-inline nav-item"><a href="{{ route('logout') }}"
 onclick="event.preventDefault();
@@ -134,17 +145,11 @@ onclick="event.preventDefault();
                             <span class="label"> {{ $post ['number_of_product'] }} </span>
                             <ul class="product__hover">
                                 <li class="text-center"><a href="{{ route('user.show', $post['id']) }}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
-
                             </ul>
                         </div>
                         <div class="product__item__text">
                             <h6>{{ $post['title'] }}</h6>
-                            <form action="" method="POST">
-                                @csrf
-                                <input type="hidden" name="post_id" value="{{$post['id']}}">
-                                <a class="add-cart">+ Add To Cart</a>
-                            </form>
-                            {{-- <a href="{{ route('user.addProduct', $post['id']) }}" class="add-cart">+ Add To Cart</a> --}}
+                            <a  onclick="addToCart({{$post['id']}})" class="add-cart btn btn-dark"> + Add To Cart</a>
                             <div class="rating">
                                 @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                     <i class="fa fa-star text-warning"></i>
@@ -175,16 +180,7 @@ onclick="event.preventDefault();
                         </div>
                         <div class="product__item__text">
                             <h6>{{ $post['title'] }}</h6>
-                            <form action="#" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                {{-- <input type="hidden" value="{{ $product->id }}" name="id">
-                                <input type="hidden" value="{{ $product->name }}" name="name">
-                                <input type="hidden" value="{{ $product->price }}" name="price">
-                                <input type="hidden" value="{{ $product->image }}"  name="image">
-                                <input type="hidden" value="1" name="quantity"> --}}
-                                <button class="px-4 py-1.5 text-white text-sm bg-blue-800 rounded">Add To Cart</button>
-                            </form>
-                            <div class="rating">
+                            <a  onclick="addToCart({{$post['id']}})" class="add-cart btn btn-dark"> + Add To Cart</a>                            <div class="rating">
                                 @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                     <i class="fa fa-star text-warning"></i>
                                 @endfor
@@ -214,16 +210,7 @@ onclick="event.preventDefault();
                         </div>
                         <div class="product__item__text">
                             <h6>{{ $post['title'] }}</h6>
-                            <form action="#" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                {{-- <input type="hidden" value="{{ $product->id }}" name="id">
-                                <input type="hidden" value="{{ $product->name }}" name="name">
-                                <input type="hidden" value="{{ $product->price }}" name="price">
-                                <input type="hidden" value="{{ $product->image }}"  name="image">
-                                <input type="hidden" value="1" name="quantity"> --}}
-                                <button class="px-4 py-1.5 text-white text-sm bg-blue-800 rounded">Add To Cart</button>
-                            </form>
-                            <div class="rating">
+                            <a  onclick="addToCart({{$post['id']}})" class="add-cart btn btn-dark"> + Add To Cart</a>                            <div class="rating">
                                 @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                     <i class="fa fa-star text-warning"></i>
                                 @endfor
@@ -248,21 +235,11 @@ onclick="event.preventDefault();
                             <span class="label"> {{ $post ['number_of_product'] }} </span>
                             <ul class="product__hover">
                                 <li class="text-center"><a href="{{ route('user.show', $post['id']) }}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
-
                             </ul>
                         </div>
                         <div class="product__item__text">
                             <h6>{{ $post['title'] }}</h6>
-                            <form action="#" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                {{-- <input type="hidden" value="{{ $product->id }}" name="id">
-                                <input type="hidden" value="{{ $product->name }}" name="name">
-                                <input type="hidden" value="{{ $product->price }}" name="price">
-                                <input type="hidden" value="{{ $product->image }}"  name="image">
-                                <input type="hidden" value="1" name="quantity"> --}}
-                                <button class="px-4 py-1.5 text-white text-sm bg-blue-800 rounded">Add To Cart</button>
-                            </form>
-                            <div class="rating">
+                            <a  onclick="addToCart({{$post['id']}})" class="add-cart btn btn-dark"> + Add To Cart</a>                            <div class="rating">
                                 @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                     <i class="fa fa-star text-warning"></i>
                                 @endfor
@@ -272,7 +249,6 @@ onclick="event.preventDefault();
                                 @endfor
                             </div>
                             <h5>${{ $post['price'] }}</h5>
-
                         </div>
                     </div>
 
@@ -306,15 +282,7 @@ onclick="event.preventDefault();
                         <div class="categories__deal__countdown">
                             <span>Deal Of The Week</span>
                             <h2>Multi-pocket Chest Bag Black</h2>
-                            <form action="#" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                {{-- <input type="hidden" value="{{ $product->id }}" name="id">
-                                <input type="hidden" value="{{ $product->name }}" name="name">
-                                <input type="hidden" value="{{ $product->price }}" name="price">
-                                <input type="hidden" value="{{ $product->image }}"  name="image">
-                                <input type="hidden" value="1" name="quantity"> --}}
-                                <button class="px-4 py-1.5 text-white text-sm bg-blue-800 rounded">Add To Cart</button>
-                            </form>
+                            <a  onclick="addToCart({{$post['id']}})" class="add-cart btn btn-dark"> + Add To Cart</a>
                             <a href="{{url('user.shope')}}" class="primary-btn">Shop now</a>
                         </div>
                     </div>
@@ -323,52 +291,100 @@ onclick="event.preventDefault();
         </section>
         <!-- Product Section End -->
 
-
     <section class="product spad py-3">
-        <div class="container">
-            <h2 class="text-center py-5">Latest Iems</h2>
-
-            <div class="row product__filter">
-                @foreach ($latest as $post)
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
-
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="{{ \Storage::url($post['image']) }}">
-                            <span class="label"> {{ $post ['number_of_product'] }} </span>
-                            <ul class="product__hover">
-                                <li class="text-center"><a href="{{ route('user.show', $post['id']) }}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
-
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6>{{ $post['title'] }}</h6>
-                            <form action="#" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                {{-- <input type="hidden" value="{{ $product->id }}" name="id">
-                                <input type="hidden" value="{{ $product->name }}" name="name">
-                                <input type="hidden" value="{{ $product->price }}" name="price">
-                                <input type="hidden" value="{{ $product->image }}"  name="image">
-                                <input type="hidden" value="1" name="quantity"> --}}
-                                <button class="px-4 py-1.5 text-white text-sm bg-blue-800 rounded">Add To Cart</button>
-                            </form>
-                            <div class="rating">
-                                @for ($i = 1 ; $i <= $post['quality'] ; $i++)
-                                <i class="fa fa-star text-warning"></i>
-                                @endfor
-
-                                @for ($i = 1 ; $i <= (5-$post['quality']) ; $i++)
-                                <i class="fa fa-star-o"></i>
-                                @endfor
-                            </div>
-                            <h5>${{ $post['price'] }}</h5>
-
-                        </div>
-                    </div>
-
+        <div id="" class="container">
+            <h2 class="text-center py-5">Latest Items</h2>
+            <div id="data-wrapper">
+                <div class="row product__filter">
+                    @include('user.data')
                 </div>
-                @endforeach
-        </div>
-        {!! $latest->links('pagination::bootstrap-5') !!}
-    </section>
+            </div>
+            <div class=" text-center" style="padding: 20px">
+                <button class="btn btn-danger load-more-data"><i class="fa fa-spinner fa-spin"></i>Loading</button>
+            </div>
 
+            <div class="auto-load text-ceter" style="display: none">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+    @endsection
+
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    function addToCart(id) {
+        var product_id = id;
+        console.log(product_id);
+        $.ajax({
+            url:'{{route('user.addpost.to.cart')}}',
+            datatype : 'json',
+            type: 'post',
+            data : {
+               ' _token' : '{{ csrf_token() }}',
+                'product_id': product_id
+            },
+            success : function (responce){
+
+                swal.fire({
+                    text: responce.msg,
+
+                    imageWidth:50,
+                    imageHeight:50,
+
+                    timer:4000,
+                    className: 'alert'
+
+                });
+
+            }
+
+        })
+    }
+
+    function userId(id) {
+        console.log(id);
+    }
+    var ENDPOINT = "{{route('user.')}}";
+        var page = 1;
+        $('.load-more-data').click(function () {
+            page++;
+            var url = ENDPOINT + "?page=" + page;
+            console.log(url);
+
+            LoadMore(page);
+        });
+        function LoadMore(page) {
+            $.ajax({
+                url:ENDPOINT + "?page=" + page,
+                datatype: "json",
+                type: "get",
+                data : {
+               ' _token' : '{{ csrf_token() }}',
+            },
+                beforeSend: function () {
+                    $('.auto-load').show();
+                }
+            })
+            .done(function (response) {
+                console.log(response);
+                if (response.html == '') {
+                    $('.auto-load').html("End : (");
+                    return;
+                }
+                $('.auto-load').hide();
+                $('#data-wrapper').append("<div class = 'row product__filter'>" + response.html + "</div>");
+            })
+            .fail(function (jqXHR, ajaxOptios, thrownError) {
+                console.log('Server error occured');
+            });
+        }
+    </script>
 @endsection

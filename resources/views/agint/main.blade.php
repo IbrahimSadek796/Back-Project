@@ -123,7 +123,7 @@ Home Page
                         </div>
                         <div class="product__item__text">
                             <h6>{{ $post['title'] }}</h6>
-
+                            <a  href="{{route('login')}}" class="add-cart btn btn-dark"> + Add To Cart</a>
                             <div class="rating">
                                 @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                     <i class="fa fa-star text-warning"></i>
@@ -154,7 +154,7 @@ Home Page
                         </div>
                         <div class="product__item__text">
                             <h6>{{ $post['title'] }}</h6>
-
+                            <a  href="{{route('login')}}" class="add-cart btn btn-dark"> + Add To Cart</a>
                             <div class="rating">
                                 @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                     <i class="fa fa-star text-warning"></i>
@@ -185,7 +185,7 @@ Home Page
                         </div>
                         <div class="product__item__text">
                             <h6>{{ $post['title'] }}</h6>
-
+                            <a  href="{{route('login')}}" class="add-cart btn btn-dark"> + Add To Cart</a>
                             <div class="rating">
                                 @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                     <i class="fa fa-star text-warning"></i>
@@ -230,7 +230,7 @@ Home Page
                         <div class="categories__deal__countdown">
                             <span>Deal Of The Week</span>
                             <h2>Multi-pocket Chest Bag Black</h2>
-
+                            <a  href="{{route('login')}}" class="add-cart btn btn-dark"> + Add To Cart</a>
                             <a href="{{route('visitor.shope')}}" class="primary-btn">Shop now</a>
                         </div>
                     </div>
@@ -240,44 +240,65 @@ Home Page
         <!-- Product Section End -->
 
 
-    <section class="product spad py-3">
-        <div class="container">
-            <h2 class="text-center py-5">Latest Iems</h2>
+        <section class="product spad py-3">
+            <div id="" class="container">
+                <h2 class="text-center py-5">Latest Items</h2>
+                <div id="data-wrapper">
+                    <div class="row product__filter">
+                        @include('agint.data')
+                    </div>
+                </div>
+                <div class=" text-center" style="padding: 20px">
+                    <button class="btn btn-danger load-more-data"><i class="fa fa-spinner fa-spin"></i>Loading</button>
+                </div>
 
-            <div class="row product__filter">
-                @foreach ($latest as $post)
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
-
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="{{ \Storage::url($post['image']) }}">
-                            <span class="label"> {{ $post ['number_of_product'] }} </span>
-                            <ul class="product__hover">
-                                <li class="text-center"><a href="{{route('visitor.show',$post['id'])}}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
-
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6>{{ $post['title'] }}</h6>
-
-                            <div class="rating">
-                                @for ($i = 1 ; $i <= $post['quality'] ; $i++)
-                                    <i class="fa fa-star text-warning"></i>
-                                @endfor
-
-                                @for ($i = 1 ; $i <= (5-$post['quality']) ; $i++)
-                                    <i class="fa fa-star-o"></i>
-                                @endfor
-                            </div>
-                            <h5>${{ $post['price'] }}</h5>
+                <div class="auto-load text-ceter" style="display: none">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
 
                         </div>
                     </div>
-
                 </div>
-                @endforeach
-        </div>
-        {!! $latest->links('pagination::bootstrap-5') !!}
+            </div>
+            </section>
 
-    </section>
+    @endsection
 
+@section('scripts')
+<script>
+    var ENDPOINT = "{{route('visitor.')}}";
+        var page = 1;
+        $('.load-more-data').click(function () {
+            page++;
+            var url = ENDPOINT + "?page=" + page;
+            console.log(url);
+
+            LoadMore(page);
+        });
+        function LoadMore(page) {
+            $.ajax({
+                url:ENDPOINT + "?page=" + page,
+                datatype: "json",
+                type: "get",
+                data : {
+               ' _token' : '{{ csrf_token() }}',
+            },
+                beforeSend: function () {
+                    $('.auto-load').show();
+                }
+            })
+            .done(function (response) {
+                // console.log(response);
+                if (response.html == '') {
+                    $('.auto-load').html("End : (");
+                    return;
+                }
+                $('.auto-load').hide();
+                $('#data-wrapper').append("<div class = 'row product__filter'>" + response.html + "</div>");
+            })
+            .fail(function (jqXHR, ajaxOptios, thrownError) {
+                console.log('Server error occured');
+            });
+        }
+</script>
 @endsection

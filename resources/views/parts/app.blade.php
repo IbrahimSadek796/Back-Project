@@ -6,7 +6,7 @@
 
 <main class="flex-shrink-0">
 
-
+<div class="container">
         @if ($errors->any())
             <div class="alert alert-danger my-3">
                 <ul>
@@ -31,7 +31,7 @@
 
         @yield('content')
 
-
+    </div>
 </main>
 
 @include('parts.headAndFoot.footer')

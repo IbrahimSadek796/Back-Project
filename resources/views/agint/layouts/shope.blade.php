@@ -70,11 +70,11 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{$post ['title']}}</h6>
+                                    <a  href="{{route('login')}}" class="add-cart btn btn-dark"> + Add To Cart</a>
                                     <div class="rating">
                                         @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                             <i class="fa fa-star text-warning"></i>
                                         @endfor
-
                                         @for ($i = 1 ; $i <= (5-$post['quality']) ; $i++)
                                             <i class="fa fa-star-o"></i>
                                         @endfor
@@ -92,3 +92,4 @@
     </section>
     <!-- Shop Section End -->
     @endsection
+

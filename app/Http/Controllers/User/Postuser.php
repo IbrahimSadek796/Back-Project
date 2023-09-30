@@ -48,14 +48,20 @@ class Postuser extends Controller
     /**
      * Display the specified resource.
      */
-    public function showAll()
+    public function showAll(Request $request)
     {
         //
         $array = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->paginate(8);
         $men = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','men')->paginate(8);
         $women = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','women')->paginate(8);
         $kids = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','kids')->paginate(8);
+        // $latest = Post::orderBy('id', 'DESC')->paginate(8);
         $latest = Post::orderBy('id', 'DESC')->paginate(8);
+        if ($request->ajax()) {
+            # code...
+            $view = view('user.data',compact('latest'))->render();
+            return response()->json(['html'=>$view]);
+        }
         return view('user.main', compact('array','men','women','kids', 'latest'));
     }
 

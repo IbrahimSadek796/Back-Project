@@ -29,6 +29,8 @@
                         <p class="fs-5 mb-4">{{ $post->description }}</p>
                         <p class="fs-5 mb-4">Numbers {{ $post->number_of_product }}</p>
                         <p class="fs-5 mb-4">Kind {{ $post->kind }}</p>
+                        <button onclick="addToCart()" class=" btn btn-dark"> + Add To Cart</button>
+                        <input id="product_id" type="hidden" name="product_id" value="{{$post->id}}" />
                     </section>
                 </article>
                 <!-- Comments section-->
@@ -39,4 +41,42 @@
         </div>
     </div>
     <!-- Footer-->
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    function addToCart() {
+        var product_id = $('#product_id').val();
+        console.log(product_id);
+
+
+        $.ajax({
+            url:'{{route('user.addpost.to.cart')}}',
+            datatype : 'json',
+            type: 'post',
+            data : {
+               ' _token' : '{{ csrf_token() }}',
+                'product_id': product_id
+            },
+
+            success : function (responce){
+
+                    swal.fire({
+                        text: responce.msg,
+
+                        imageWidth:50,
+                        imageHeight:50,
+
+                        timer:7000,
+                        className: 'alert'
+
+                    });
+                    }
+
+                })
+            }
+
+    </script>
 @endsection

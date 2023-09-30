@@ -77,8 +77,7 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{ $post['title'] }}</h6>
-
-                                    <div class="rating">
+                                    <a  href="{{route('login')}}" class="add-cart btn btn-dark"> + Add To Cart</a>                                    <div class="rating">
                                         @for ($i = 1 ; $i <= $post['quality'] ; $i++)
                                             <i class="fa fa-star text-warning"></i>
                                         @endfor

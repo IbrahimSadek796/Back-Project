@@ -48,12 +48,18 @@ class agintController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showAll()
+    public function showAll(Request $request)
     {
         $men = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','men')->get();
         $women = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','women')->get();
         $kids = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','kids')->get();
+        // $latest = Post::orderBy('id', 'DESC')->paginate(8);
         $latest = Post::orderBy('id', 'DESC')->paginate(8);
+        if ($request->ajax()) {
+            # code...
+            $view = view('agint.data',compact('latest'))->render();
+            return response()->json(['html'=>$view]);
+        }
         return view('agint.main', compact('men','women','kids', 'latest'));
     }
 
