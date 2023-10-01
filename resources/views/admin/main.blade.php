@@ -116,37 +116,6 @@ Home Page
                 </div>
             </div>
             <div class="row product__filter">
-                @foreach ($array as $post)
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ">
-
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="{{ \Storage::url($post['image']) }}">
-                            <span class="label"> {{ $post ['number_of_product'] }} </span>
-                            <ul class="product__hover">
-                                <li class="text-center"><a href="#"><i class="fas fa-eye"></i> <span>Show</span></a></li>
-
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6>{{ $post['title'] }}</h6>
-
-                            <div class="rating">
-                                @for ($i = 1 ; $i <= $post['quality'] ; $i++)
-                                    <i class="fa fa-star text-warning"></i>
-                                @endfor
-
-                                @for ($i = 1 ; $i <= (5-$post['quality']) ; $i++)
-                                    <i class="fa fa-star-o"></i>
-                                @endfor
-                            </div>
-                            <h5>${{ $post['price'] }}</h5>
-
-                        </div>
-                    </div>
-
-                </div>
-                @endforeach
-
                 @foreach ($men as $post)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix men">
 
@@ -154,7 +123,7 @@ Home Page
                         <div class="product__item__pic set-bg" data-setbg="{{ \Storage::url($post['image']) }}">
                             <span class="label"> {{ $post ['number_of_product'] }} </span>
                             <ul class="product__hover">
-                                <li class="text-center"><a href="#"><i class="fas fa-eye"></i> <span>Show</span></a></li>
+                                <li class="text-center"><a href="{{ route('admin.posts.show', $post['id']) }}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
 
                             </ul>
                         </div>
@@ -185,7 +154,7 @@ Home Page
                         <div class="product__item__pic set-bg" data-setbg="{{ \Storage::url($post['image']) }}">
                             <span class="label"> {{ $post ['number_of_product'] }} </span>
                             <ul class="product__hover">
-                                <li class="text-center"><a href="#"><i class="fas fa-eye"></i> <span>Show</span></a></li>
+                                <li class="text-center"><a href="{{ route('admin.posts.show', $post['id']) }}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
 
                             </ul>
                         </div>
@@ -216,7 +185,7 @@ Home Page
                         <div class="product__item__pic set-bg" data-setbg="{{ \Storage::url($post['image']) }}">
                             <span class="label"> {{ $post ['number_of_product'] }} </span>
                             <ul class="product__hover">
-                                <li class="text-center"><a href="#"><i class="fas fa-eye"></i> <span>Show</span></a></li>
+                                <li class="text-center"><a href="{{ route('admin.posts.show', $post['id']) }}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
 
                             </ul>
                         </div>

@@ -10,38 +10,57 @@ class agintController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
         //
+        if (request('search')) {
+            $posts = Post::orderBy('id', 'DESC')->where('kind', 'like', '%' . request('search') . '%')->paginate(9);
+        }else {
+            $posts = Post::orderBy('id', 'DESC')->paginate(9);
+        }
 
 
-        $posts = Post::orderBy('id', 'DESC')->paginate(9);
         return view('agint.layouts.shope', compact('posts'));
     }
-    public function showMen()
+    public function showMen(Request $request)
     {
         //
-        $array = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'men')->paginate(9);
+        if (request('search')) {
+            $array = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'men')->where('title', 'like', '%' . request('search') . '%')->paginate(9);
+        }else {
+            $array = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'men')->paginate(9);
+        }
+
         return view('agint.layouts.men', compact('array'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function showkids()
+    public function showkids(Request $request)
     {
         //
-        $kids = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'kids')->paginate(9);
+        if (request('search')) {
+            $kids = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'kids')->where('title', 'like', '%' . request('search') . '%')->paginate(9);
+        }else {
+            $kids = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'kids')->paginate(9);
+        }
+
         return view('agint.layouts.kids', compact('kids'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function showwomen()
+    public function showwomen(Request $request)
     {
         //
-        $array = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'women')->paginate(9);
+        if (request('search')) {
+            $array = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'women')->where('title', 'like', '%' . request('search') . '%')->paginate(9);
+        }else {
+            $array = Post::orderBy('id', 'DESC')->where('kind' , '=' , 'women')->paginate(9);
+        }
+
         return view('agint.layouts.women', compact('array'));
     }
 
@@ -49,17 +68,32 @@ class agintController extends Controller
      * Display the specified resource.
      */
     public function showAll(Request $request)
+        // Check for search input
     {
-        $men = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','men')->get();
-        $women = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','women')->get();
-        $kids = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','kids')->get();
-        // $latest = Post::orderBy('id', 'DESC')->paginate(8);
-        $latest = Post::orderBy('id', 'DESC')->paginate(8);
+
+
+
+        if (request('search')) {
+            # code...
+            $latest = Post::orderBy('id', 'DESC')->where('kind', 'like', '%' . request('search') . '%')->get();
+
+
+        }else {
+            # code...
+
+
+            $latest = Post::orderBy('id', 'DESC')->paginate(8);
+        }
+
         if ($request->ajax()) {
             # code...
             $view = view('agint.data',compact('latest'))->render();
             return response()->json(['html'=>$view]);
         }
+        $men = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','men')->get();
+        $women = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','women')->get();
+        $kids = Post::orderBy('id', 'DESC')->where('quality' , '>' , '3')->where('kind','=','kids')->get();
+
         return view('agint.main', compact('men','women','kids', 'latest'));
     }
 

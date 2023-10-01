@@ -14,7 +14,11 @@ class userController extends Controller
     public function index()
     {
         //
+        if (request('search')) {
+            $users = User::where('name', 'like', '%' . request('search') . '%')->paginate(9);
+        }else {
         $users = User::orderBy('id', 'DESC')->paginate(10);
+        }
         return view('admin.users.index', compact('users'));
 
     }

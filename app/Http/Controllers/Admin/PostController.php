@@ -12,12 +12,16 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if (request('search')) {
+            $posts = Post::orderBy('id', 'DESC')->where('kind', 'like', '%' . request('search') . '%')->paginate(9);
+        }else {
+            # code...
+            $posts = Post::orderBy('id', 'DESC')->paginate(9);
+        }
 
-
-        $posts = Post::orderBy('id', 'DESC')->paginate(9);
         return view('admin.posts.index', compact('posts'));
     }
 

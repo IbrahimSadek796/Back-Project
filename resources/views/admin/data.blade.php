@@ -7,7 +7,7 @@
             <img src="{{ \Storage::url($post->image) }}" alt="" class="w-100 h-100">
             <span class="label"> {{ $post ['number_of_product'] }} </span>
             <ul class="product__hover">
-                <li class="text-center"><a href="{{ route('admin.show', $post['id']) }}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
+                <li class="text-center"><a href="{{ route('admin.posts.show', $post['id']) }}"><i class="fas fa-eye"></i> <span>Show</span></a></li>
 
             </ul>
         </div>

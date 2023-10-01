@@ -75,14 +75,15 @@
             </div>
         </div>
 
-
-
         <div class="navbar bg-body-tertiary ">
             <form class="container-fluid border-radius-lg w-50 my-5">
                 <div class="input-group">
 
-                <input type="text" class="form-control rounded-5" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                <span class="input-group-text rounded-5" id="basic-addon1"><img src="{{url('img/icon/search.png')}}" alt=""></span>
+                <input type="search"
+                class="form-control rounded"
+                placeholder="Find Product here"
+                name="search"
+                value="{{ request('search') }}">
                 </div>
             </form>
         </div>
