@@ -41,8 +41,6 @@ onclick="event.preventDefault();
     <li><a href="{{route('user.men')}}">Men</a></li>
     <li><a href="{{route('user.women')}}">Women</a></li>
     <li><a href="{{route('user.kids')}}">Kids</a></li>
-    <li><a href="./contact.html">Explicabo Quia</a></li>
-    {{-- <li><a href="./contact.html">Hic Ipsum</a></li> --}}
 @endsection
 
 @section('content')
@@ -104,7 +102,7 @@ onclick="event.preventDefault();
                             <h2>HOT COLLECTION</h2>
 
                             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod, iste sed corrupti amet et odio ipsum provident inventore nulla ea eos ut debitis aliquam doloribus. </p>
-                            <a href="{{url('user.shope')}}">Shop now</a>
+                            <a href="{{route('user.shope')}}">Shop now</a>
                         </div>
                     </div>
                 </div>

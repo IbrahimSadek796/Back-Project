@@ -18,7 +18,7 @@ onclick="event.preventDefault();
     <li><a href="{{route('admin.women')}}">Women</a></li>
     <li><a href="{{route('admin.kids')}}">Kids</a></li>
     <li><a href="{{route('admin.users.index')}}">Users</a></li>
-    <li><a href="{{route('admin.posts.create')}}">Hic Ipsum</a></li>
+    <li><a href="{{route('admin.posts.create')}}">Add New</a></li>
 @endsection
 
 @section('content')
@@ -50,8 +50,7 @@ onclick="event.preventDefault();
                                                     <li><a href="{{route('admin.women')}}">Women</a></li>
                                                     <li><a href="{{route('admin.kids')}}">Kids</a></li>
                                                     <li><a href="{{route('admin.users.index')}}">Users</a></li>
-                                                    <li><a href="{{route('admin.posts.create')}}">Hic Ipsum</a></li>
-                                                    <li><a href="#">Maxime Inventor</a></li>
+                                                    <li><a href="{{route('admin.posts.create')}}">Add New</a></li>
                                                 </ul>
                                             </div>
                                         </div>

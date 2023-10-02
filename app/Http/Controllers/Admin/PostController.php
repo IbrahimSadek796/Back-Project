@@ -60,7 +60,7 @@ class PostController extends Controller
 
 
 
-        return redirect(route('posts.index'))->with('success', 'Post created successfully');
+        return redirect(route('admin.posts.index'))->with('success', 'Post created successfully');
     }
 
     /**
@@ -123,7 +123,7 @@ class PostController extends Controller
 
 
 
-        return redirect(route('posts.index'))->with('success', 'Post updated successfully');
+        return redirect(route('admin.posts.index'))->with('success', 'Post updated successfully');
     }
 
     /**
@@ -137,6 +137,6 @@ class PostController extends Controller
         \Storage::delete($post->image);
         $post?->delete();
 
-        return redirect(route('posts.index'))->with('success', 'Post deleted successfully');
+        return redirect(route('admin.posts.index'))->with('success', 'Post deleted successfully');
     }
 }

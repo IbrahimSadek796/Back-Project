@@ -12,8 +12,6 @@
     <li><a href="{{route('visitor.men')}}">Men</a></li>
     <li><a href="{{route('visitor.women')}}">Women</a></li>
     <li><a href="{{route('visitor.kids')}}">Kids</a></li>
-    <li><a href="./contact.html">Explicabo Quia</a></li>
-    <li><a href="./contact.html">Hic Ipsum</a></li>
 @endsection
 
 @section('content')
@@ -44,9 +42,6 @@
                                                     <li><a href="{{route('visitor.men')}}">Men </a></li>
                                                     <li><a href="{{route('visitor.women')}}">Women</a></li>
                                                     <li><a href="{{route('visitor.kids')}}">Kids</a></li>
-                                                    <li><a href="./checkout.html">Explicabo Quia</a></li>
-                                                    <li><a href="./blog-details.html">Hic Ipsum</a></li>
-                                                    <li><a href="#">Maxime Inventor</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -85,9 +80,6 @@
                             </div>
                         </div>
                         @endforeach
-
-
-
                     </div>
                     {!! $kids->links('pagination::bootstrap-5') !!}
                 </div>

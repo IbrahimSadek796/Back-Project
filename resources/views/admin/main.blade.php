@@ -21,7 +21,7 @@ Home Page
     <li><a href="{{route('admin.women')}}">Women</a></li>
     <li><a href="{{route('admin.kids')}}">Kids</a></li>
     <li><a href="{{route('admin.users.index')}}">User</a></li>
-    <li><a href="{{route('admin.posts.create')}}">Hic Ipsum</a></li>
+    <li><a href="{{route('admin.posts.create')}}">Add New</a></li>
 @endsection
 
 @section('content')

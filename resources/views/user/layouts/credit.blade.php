@@ -7,7 +7,7 @@
 <li class="d-inline nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
 <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Profile</a></li>
+    <li><a class="dropdown-item" href="{{route('user.edit')}}">Profile</a></li>
     <li><a class="dropdown-item" href="{{route('user.orders')}}">My Order</a></li>
     <hr>
     <li>
@@ -40,8 +40,6 @@ onclick="event.preventDefault();
     <li><a href="{{route('user.men')}}">Men</a></li>
     <li><a href="{{route('user.women')}}">Women</a></li>
     <li><a href="{{route('user.kids')}}">Kids</a></li>
-    <li><a href="./contact.html">Explicabo Quia</a></li>
-    <li><a href="./contact.html">Hic Ipsum</a></li>
 @endsection
 
 @section('content')

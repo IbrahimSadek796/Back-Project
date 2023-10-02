@@ -14,8 +14,7 @@ Home Page
     <li><a href="{{route('visitor.men')}}">Men</a></li>
     <li><a href="{{route('visitor.women')}}">Women</a></li>
     <li><a href="{{route('visitor.kids')}}">Kids</a></li>
-    <li><a href="{{url('contact')}}">Explicabo Quia</a></li>
-    {{-- <li><a href="./contact.html">Hic Ipsum</a></li> --}}
+    <li><a href="{{url('contact')}}">Contact Us</a></li>
 @endsection
 
 @section('content')
@@ -230,7 +229,6 @@ Home Page
                         <div class="categories__deal__countdown">
                             <span>Deal Of The Week</span>
                             <h2>Multi-pocket Chest Bag Black</h2>
-                            <a  href="{{route('login')}}" class="add-cart btn btn-dark"> + Add To Cart</a>
                             <a href="{{route('visitor.shope')}}" class="primary-btn">Shop now</a>
                         </div>
                     </div>
